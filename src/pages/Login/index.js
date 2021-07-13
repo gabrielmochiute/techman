@@ -1,6 +1,7 @@
 import { Overlay, Container, Buttons } from "./styles";
 import { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
+import { api } from "../../services/api";
 
 import Logo from "../../assets/techman.png";
 
@@ -22,7 +23,7 @@ function Login() {
   };
   console.log(password);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password.length < 6) {
@@ -31,8 +32,16 @@ function Login() {
       // inputRef.current.style.border-radius = "25px";
       return;
     }
+    try {
+      const response = await api.post("/login", { password });
 
-    history.push("/home");
+      console.log(response);
+
+      history.push("/home");
+    } catch (error) {
+      console.error(error);
+      alert("Senha inválida");
+    }
   };
 
   return (
