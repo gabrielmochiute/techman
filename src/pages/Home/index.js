@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Overlay, NavBar, Feed, CardsProducts } from "./styles";
 
@@ -14,6 +14,7 @@ import Comments from "../../components/Comments";
 import NewComment from "../../components/NewComment";
 import NewEquipment from "../../components/NewEquipment";
 import { useHistory } from "react-router-dom";
+import { api } from "../../services/api";
 
 function Home() {
   const history = useHistory();
@@ -22,6 +23,21 @@ function Home() {
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const [showNewCommentModal, setShowNewCommentModal] = useState(false);
   const [showNewEquipmentModal, setShowNewEquipmentModal] = useState(false);
+
+  const [equipments, setEquipments] = useState([]);
+  useEffect(() => {
+    getEquipments();
+  }, []);
+
+  const getEquipments = async () => {
+    try {
+      const response = await api.get("/feed");
+
+      setEquipments(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -60,35 +76,26 @@ function Home() {
           </div>
         </NavBar>
         <Feed>
-          <CardsProducts>
-            <img src={Torno} alt="Foto do produto" />
-            <div>
-              <h1>Equipamento de automação industrial</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                cursus suscipit arcu, et suscipit elit. Quisque erat lacus,
-                maximus et interdum quis, hendrerit in turpis. Proin ac velit a
-                felis ultrices tristique et quis diam. Donec sed orci lorem. Sed
-                fringilla quam a sem sollicitudin efficitur. Nulla non metus ac
-                orci interdum lacinia sit amet sit amet nisl. Integer
-                scelerisque, tortor ut vulputate condimentum, mauris risus
-                ultricies libero, euismod commodo sem eros et nibh. Etiam sit
-                amet aliquet tellus.
-              </p>
+          {equipments.map((e) => (
+            <CardsProducts>
               <div>
                 <img
-                  src={Comentario}
-                  alt="Imagem de comentário"
-                  onClick={() => setShowCommentsModal(true)}
-                />
-                <img
-                  src={Deletar}
-                  alt="Imagem de deletar"
-                  onClick={() => setShowDeleteModal(true)}
+                  src={e.image}
+                  alt="Foto do produto"
+                  width="300px"
+                  height="300px"
                 />
               </div>
-            </div>
-          </CardsProducts>
+              <div>
+                <h1>{e.name}</h1>
+                <p>{e.description}</p>
+                <div>
+                  <img src={Comentario} alt="Imagem de comentário" />
+                  <img src={Deletar} alt="Imagem de deletar" />
+                </div>
+              </div>
+            </CardsProducts>
+          ))}
         </Feed>
       </Overlay>
     </>
