@@ -35,7 +35,7 @@ export const Container = styled.div`
 
     > h1 {
       font-size: 20px;
-      font-weight: bolder;
+      font-weight: 500;
     }
     span {
       font-size: 24px;
@@ -50,8 +50,21 @@ export const Container = styled.div`
     font-size: 20px;
   }
 
+  > label {
+    color: var(--darkGray);
+    font-style: italic;
+  }
+
+  > input {
+    border: none;
+    border-bottom: solid 2px var(--primaryDark);
+    font-size: 28px;
+    padding: 5px 0px;
+    color: var(--primaryDark);
+  }
+
   > button {
-    background-color: #f33;
+    background-color: var(--primaryDark);
     /* padding: 25px 10px; */
     width: 150px;
     height: 50px;

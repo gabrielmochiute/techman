@@ -15,30 +15,27 @@ export const Overlay = styled.div`
 
 export const Container = styled.div`
   width: 800px;
-  height: 400px;
+  height: 600px;
   background-color: var(--white);
-
   border: solid 1px var(--darkGray);
+
   padding: 15px;
 
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
   flex-direction: column;
 
   > div {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    color: var(--primary);
-
+    justify-content: space-between;
+    color: var(--primaryDark);
     > h1 {
-      font-size: 20px;
-      font-weight: bolder;
+      font-weight: 500;
+      font-size: x-large;
     }
     span {
-      font-size: 24px;
+      font-size: x-large;
       transition: 0.3s;
       cursor: pointer;
       :hover {
@@ -46,14 +43,11 @@ export const Container = styled.div`
       }
     }
   }
-  > p {
-    font-size: 20px;
-  }
 
   > button {
-    background-color: #f33;
-    /* padding: 25px 10px; */
-    width: 150px;
+    background-color: var(--primaryDark);
+    padding: 0px 10px;
+    width: fit-content;
     height: 50px;
     border: none;
     outline: none;
@@ -65,5 +59,37 @@ export const Container = styled.div`
     :hover {
       background-color: var(--primary);
     }
+  }
+`;
+
+export const CommentsContainer = styled.div`
+  height: 70%;
+  width: 100%;
+  /* background-color: #00000020; */
+
+  overflow-y: scroll;
+
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  flex-direction: column;
+  gap: 15px;
+  /* flex-wrap: wrap; */
+`;
+
+export const Comment = styled.div`
+  width: 100%;
+  min-height: 150px;
+  overflow: hidden;
+  /* background-color: aquamarine; */
+  border-bottom: dashed 2px var(--primaryDark);
+  color: #5e5e5e;
+
+  > h1 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  > p {
+    margin-bottom: 15px;
   }
 `;

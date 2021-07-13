@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Overlay, NavBar, Feed, CardsProducts } from "./styles";
 
 import Logo from "../../assets/techman.png";
@@ -8,18 +10,53 @@ import Deletar from "../../assets/deletar.png";
 import Comentario from "../../assets/comentario.png";
 
 import Delete from "../../components/Delete";
+import Comments from "../../components/Comments";
+import NewComment from "../../components/NewComment";
+import NewEquipment from "../../components/NewEquipment";
+import { useHistory } from "react-router-dom";
 
 function Home() {
+  const history = useHistory();
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
+  const [showNewCommentModal, setShowNewCommentModal] = useState(false);
+  const [showNewEquipmentModal, setShowNewEquipmentModal] = useState(false);
+
   return (
     <>
       <Overlay>
-        <Delete />
+        {showCommentsModal && (
+          <Comments
+            handleClose={() => setShowCommentsModal(false)}
+            handleNewComment={() => {
+              setShowCommentsModal(false);
+              setShowNewCommentModal(true);
+            }}
+          />
+        )}
+        {showDeleteModal && (
+          <Delete handleClose={() => setShowDeleteModal(false)} />
+        )}
+        {showNewCommentModal && (
+          <NewComment handleClose={() => setShowNewCommentModal(false)} />
+        )}
+        {showNewEquipmentModal && (
+          <NewEquipment handleClose={() => setShowNewEquipmentModal(false)} />
+        )}
+
         <NavBar>
           <img src={Logo} alt="logo" />
 
           <div>
-            <h1>Novo equipamento</h1>
-            <img src={Sair} alt="Botão sair" />
+            <h1 onClick={() => setShowNewEquipmentModal(true)}>
+              Novo equipamento
+            </h1>
+            <img
+              src={Sair}
+              alt="Botão sair"
+              onClick={() => history.push("/")}
+            />
           </div>
         </NavBar>
         <Feed>
@@ -39,8 +76,16 @@ function Home() {
                 amet aliquet tellus.
               </p>
               <div>
-                <img src={Comentario} />
-                <img src={Deletar} />
+                <img
+                  src={Comentario}
+                  alt="Imagem de comentário"
+                  onClick={() => setShowCommentsModal(true)}
+                />
+                <img
+                  src={Deletar}
+                  alt="Imagem de deletar"
+                  onClick={() => setShowDeleteModal(true)}
+                />
               </div>
             </div>
           </CardsProducts>

@@ -26,7 +26,8 @@ function Login() {
     e.preventDefault();
 
     if (password.length < 6) {
-      inputRef.current.style.border = "solid 2px red";
+      inputRef.current.style.borderBottom = "solid 2px red";
+      setPassword("");
       // inputRef.current.style.border-radius = "25px";
       return;
     }

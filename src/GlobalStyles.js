@@ -18,9 +18,21 @@ export const GlobalStyles = createGlobalStyle`
     outline: 0;
     box-sizing: border-box;
   }
+  ::-webkit-scrollbar{
+    width: 4px;
+    background-color: var(--darkGray);
+  }
+  ::-webkit-scrollbar-track{
+    background-color: var(--primaryDark);
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: var(--primary);
+    border-radius: 15px;
+  }
 
   body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: var(--light);
   }
 
